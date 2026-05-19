@@ -1,3 +1,5 @@
 {
-  "lastUpdated": "Unknown"
+  "lastUpdated": "2026-05-19",
+  "version": "2.0",
+  "description": "Split into index.html, style.css, script.js. Added streak tracking, keyboard support, question review, confetti, random topic, 2 more questions per topic."
 }
