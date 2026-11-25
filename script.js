@@ -174,7 +174,11 @@ function loadHighScores() {
 }
 
 function saveHighScores() {
-  localStorage.setItem('quizHighScores', JSON.stringify(state.highScores));
+  try {
+    localStorage.setItem('quizHighScores', JSON.stringify(state.highScores));
+  } catch {
+    // Private mode or a full quota: keep scores for this session only.
+  }
 }
 
 function getTopicHighScores(topic) {
@@ -272,6 +276,7 @@ function showQuestion() {
 
   q.o.forEach((opt, i) => {
     const btn = document.createElement('button');
+    btn.type = 'button';
     btn.textContent = opt;
     btn.dataset.value = opt;
     btn.dataset.idx = i;
@@ -328,7 +333,12 @@ function startTimer(duration) {
         state.answering = true;
         state.results[state.index] = 'timeout';
         state.streak = 0;
-        showFeedback(null, state.questions[state.index].a);
+        const correct = state.questions[state.index].a;
+        document.querySelectorAll('#answers-container button').forEach(b => {
+          b.disabled = true;
+          if (b.dataset.value === correct) b.className = 'btn-correct';
+        });
+        showFeedback(null, correct);
       }
     }
   }, 1000);
@@ -455,13 +465,15 @@ function restartSameTopic() {
   showScreen('difficulty-container');
 }
 
+const SHARE_URL = 'https://hellenicdev.eu/the-quiz/';
+
 function shareResult() {
   const pct = Math.round((state.score / state.questions.length) * 100);
   const text = `I scored ${state.score}/${state.questions.length} (${pct}%) on "${state.topicDisplayName}" quiz! 🎯 Can you beat me?`;
   if (navigator.share) {
-    navigator.share({ title: 'Quiz Result', text }).catch(() => {});
-  } else {
-    navigator.clipboard.writeText(text).then(() => {
+    navigator.share({ title: 'Quiz Result', text, url: SHARE_URL }).catch(() => {});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(`${text} ${SHARE_URL}`).then(() => {
       const btn = $('share-btn');
       btn.textContent = '📋 Copied!';
       setTimeout(() => btn.textContent = '📤 Share Result', 2000);

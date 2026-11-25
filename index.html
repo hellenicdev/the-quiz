@@ -4,12 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Test your knowledge in various subjects. Fun and educational quiz app!"/>
-  <meta name="keywords" content="HellenicDev, programming, HTML, CSS, JS, open-source, projects, web-developement, hellenic, dev, developer, knowledge, subjects, The Quiz, fun, educational, quiz, science, food, drinks, sports, sport, geography, history, technology, music, movies"/>
+  <meta name="keywords" content="HellenicDev, programming, HTML, CSS, JS, open-source, projects, web-development, hellenic, dev, developer, knowledge, subjects, The Quiz, fun, educational, quiz, science, food, drinks, sports, sport, geography, history, technology, music, movies"/>
   <meta name="author" content="HellenicDev"/>
   <meta name="theme-color" content="#19336e"/>
-  <meta property="og:title" content="HellenicDev">
-  <meta property="og:description" content="Programming projects, experiments, and tools by HellenicDev.">
-  <meta property="og:image" content="https://hellenicdev.eu/logo.webp">
+  <meta property="og:title" content="The Quiz | HellenicDev">
+  <meta property="og:description" content="Test your knowledge in 8 topics with 3 difficulty levels. Free, fun and educational.">
+  <meta property="og:image" content="https://hellenicdev.eu/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://hellenicdev.eu/the-quiz/">
   <meta property="og:url" content="https://hellenicdev.eu/the-quiz/">
   <meta property="og:type" content="website">
@@ -19,7 +20,7 @@
 <body>
 
   <a href="/">
-    <img src="https://hellenicdev.eu/logo.webp" alt="Logo" class="site-logo">
+    <img src="https://hellenicdev.eu/logo.webp" alt="HellenicDev home" class="site-logo">
   </a>
 
   <h1>The Quiz 🎓</h1>
@@ -27,25 +28,25 @@
   <!-- Menu -->
   <div id="menu-container" class="screen container active">
     <h2>Select a topic:</h2>
-    <button onclick="selectTopic('science')">🔬 Science</button>
-    <button onclick="selectTopic('sports')">⚽ Sports</button>
-    <button onclick="selectTopic('food')">🍔 Food & Drinks</button>
-    <button onclick="selectTopic('geography')">🌎 Geography</button>
-    <button onclick="selectTopic('history')">📜 History</button>
-    <button onclick="selectTopic('technology')">💻 Technology</button>
-    <button onclick="selectTopic('movies')">🎬 Movies</button>
-    <button onclick="selectTopic('music')">🎵 Music</button>
-    <button onclick="selectRandomTopic()" class="btn-success">🎲 Random Topic</button>
+    <button type="button" onclick="selectTopic('science')">🔬 Science</button>
+    <button type="button" onclick="selectTopic('sports')">⚽ Sports</button>
+    <button type="button" onclick="selectTopic('food')">🍔 Food & Drinks</button>
+    <button type="button" onclick="selectTopic('geography')">🌎 Geography</button>
+    <button type="button" onclick="selectTopic('history')">📜 History</button>
+    <button type="button" onclick="selectTopic('technology')">💻 Technology</button>
+    <button type="button" onclick="selectTopic('movies')">🎬 Movies</button>
+    <button type="button" onclick="selectTopic('music')">🎵 Music</button>
+    <button type="button" onclick="selectRandomTopic()" class="btn-success">🎲 Random Topic</button>
   </div>
 
   <!-- Difficulty -->
   <div id="difficulty-container" class="screen container">
     <h2>Select Difficulty:</h2>
     <p id="topic-label" style="color:#aaa;margin:0 0 10px;font-size:0.95rem;"></p>
-    <button onclick="startQuiz('easy')">🌟 Easy (15s)</button>
-    <button onclick="startQuiz('medium')">⚡ Medium (10s)</button>
-    <button onclick="startQuiz('hard')">🔥 Hard (5s)</button>
-    <button onclick="backToMenu()" class="btn-secondary btn-small" style="margin-top:16px;">← Back</button>
+    <button type="button" onclick="startQuiz('easy')">🌟 Easy (15s)</button>
+    <button type="button" onclick="startQuiz('medium')">⚡ Medium (10s)</button>
+    <button type="button" onclick="startQuiz('hard')">🔥 Hard (5s)</button>
+    <button type="button" onclick="backToMenu()" class="btn-secondary btn-small" style="margin-top:16px;">← Back</button>
   </div>
 
   <!-- Quiz -->
@@ -63,10 +64,10 @@
         <div class="timer-bar-fill" id="timer-bar" style="width:100%"></div>
       </div>
       <p id="timer-label" style="font-size:0.9rem;color:#aaa;margin:4px 0 10px;">⏱ 15s</p>
-      <h3 id="question-text"></h3>
+      <h3 id="question-text" aria-live="polite">Loading question…</h3>
       <div id="answers-container"></div>
       <p class="keyboard-hint">⌨️ Press 1-4 to answer</p>
-      <div id="feedback" style="display:none;"></div>
+      <div id="feedback" role="status" aria-live="polite" style="display:none;"></div>
     </div>
   </div>
 
@@ -84,9 +85,9 @@
       <ul class="review-list" id="review-list"></ul>
     </details>
 
-    <button onclick="backToMenu()">← Back to Menu</button>
-    <button onclick="restartSameTopic()" class="btn-success">🔄 Try Again</button>
-    <button id="share-btn" onclick="shareResult()" class="btn-share">📤 Share Result</button>
+    <button type="button" onclick="backToMenu()">← Back to Menu</button>
+    <button type="button" onclick="restartSameTopic()" class="btn-success">🔄 Try Again</button>
+    <button type="button" id="share-btn" onclick="shareResult()" class="btn-share">📤 Share Result</button>
   </div>
 
   <div class="footer">
